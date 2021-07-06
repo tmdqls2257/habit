@@ -16,7 +16,7 @@ class Habit extends Component {
   }
 
   render(){
-    console.log(this.props.habit);//데이터가 자동으로 props로 전달
+    //console.log(this.props.habit);//데이터가 자동으로 props로 전달
     const { name, count } = this.props.habit;
     //자동으로 habit에 있는 데이터가 name과 count에 담겨진다.
     //단 동일한 이름을 사용해야한다. 
