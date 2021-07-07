@@ -1,5 +1,7 @@
 @import './css/habit.css';
 @import './css/header.css';
+@import './css/add.css';
+@import './css/reset.css';
 
 * {
   box-sizing: border-box;

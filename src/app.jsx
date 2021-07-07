@@ -42,8 +42,9 @@ class App extends Component {
 
   resetAll = () => {
     const habits = [...this.state.habits];
-    const index = habits.map(habits => (habits.count));
+    const index = habits.map(habits => (habits.count = 0));
     this.setState({index});
+    this.setState({totalCount: 0});
   }
 
   totalScore = () => {
@@ -51,6 +52,14 @@ class App extends Component {
     this.state.habits.forEach(item => result += item.count);
     this.setState({totalCount: result});
   }
+  
+  handleAdd = name => {
+    const habits = [...this.state.habits, {id: Date.now(), name: name, count:0}]//spread opperater: habit에 있는 아이템들을 하나하나씩 새로운 배열로 복사
+  //Date.now현재 날짜와 시간으로 고유 아이디를 만든다.
+  //name: name은 name으로 생략 가능
+  this.setState({habits});
+  }
+
   
   render() {
     return (
@@ -62,6 +71,7 @@ class App extends Component {
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
           onDelete={this.handleDelete}
+          onClick={this.resetAll}
           />
       </>
     );
