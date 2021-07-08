@@ -15,24 +15,35 @@ class App extends Component {
 
   
   handleIncrement = habit =>{//react는 state를 직접적으로 변경시키는 것은 좋지 않다.
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    habits[index].count++;
-      this.setState({habits});
-      this.setState((state) => {
-        return{totalCount: state.totalCount + 1};
-      });
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id){
+        return {...habit,count: habit.count + 1};//deconstructing오브젝트
+        //habit에 있는 데이터를 복사해와서 오브젝트로 만든다.
+        // habit의 카운트만 1증가
+      } 
+      return item;
+    })
+    this.setState({ habits });
+      // this.setState((state) => {
+      //   return{totalCount: state.totalCount + 1};
+      // });
   };
 
   handleDecrement = habit =>{
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
-    habits[index].count = count < 0 ? 0: count; //좋지는 않은 코드
+    const habits = this.state.habits.map(item => {
+      if (item.id === habit.id){
+        const count = habit.count - 1;
+        return {...habit,count: count < 0 ? 0 : count};//deconstructing오브젝트
+        //habit에 있는 데이터를 복사해와서 오브젝트로 만든다.
+        // habit의 카운트만 1증가
+      } 
+      return item;
+    })
+    // habits[index].count = count < 0 ? 0: count; //좋지는 않은 코드
     this.setState({habits});
-    this.setState((state) => {
-      return{totalCount: state.totalCount - 1};
-    });
+    // this.setState((state) => {
+    //   return{totalCount: state.totalCount - 1};
+    // });
   };
 
   handleDelete = habit =>{
@@ -41,9 +52,13 @@ class App extends Component {
   };
 
   resetAll = () => {
-    const habits = [...this.state.habits];
-    const index = habits.map(habits => (habits.count = 0));
-    this.setState({index});
+    const habits = this.state.habits.map(habit => {
+      if (habit.count !== 0){
+        return {...habit,count: 0};
+      } 
+      return habit;
+    })
+    this.setState({habits});
     this.setState({totalCount: 0});
   }
 
@@ -54,7 +69,8 @@ class App extends Component {
   }
   
   handleAdd = name => {
-    const habits = [...this.state.habits, {id: Date.now(), name: name, count:0}]//spread opperater: habit에 있는 아이템들을 하나하나씩 새로운 배열로 복사
+    const habits = [...this.state.habits, {id: Date.now(), name: name, count:0}]
+    //spread opperater: habit에 있는 아이템들을 하나하나씩 새로운 배열로 복사
   //Date.now현재 날짜와 시간으로 고유 아이디를 만든다.
   //name: name은 name으로 생략 가능
   this.setState({habits});
@@ -72,6 +88,8 @@ class App extends Component {
           onDecrement={this.handleDecrement}
           onDelete={this.handleDelete}
           onClick={this.resetAll}
+          onAdd={this.handleAdd}
+          onReset={this.resetAll}
           />
       </>
     );
