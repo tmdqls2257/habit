@@ -17,7 +17,7 @@ class App extends Component {
   handleIncrement = habit =>{//react는 state를 직접적으로 변경시키는 것은 좋지 않다.
     const habits = this.state.habits.map(item => {
       if (item.id === habit.id){
-        return {...habit,count: habit.count + 1};//deconstructing오브젝트
+        return {...habit, count: habit.count + 1};//deconstructing오브젝트
         //habit에 있는 데이터를 복사해와서 오브젝트로 만든다.
         // habit의 카운트만 1증가
       } 
@@ -33,7 +33,7 @@ class App extends Component {
     const habits = this.state.habits.map(item => {
       if (item.id === habit.id){
         const count = habit.count - 1;
-        return {...habit,count: count < 0 ? 0 : count};//deconstructing오브젝트
+        return {...habit, count: count < 0 ? 0 : count};//deconstructing오브젝트
         //habit에 있는 데이터를 복사해와서 오브젝트로 만든다.
         // habit의 카운트만 1증가
       } 
